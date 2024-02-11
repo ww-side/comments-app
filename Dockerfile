@@ -8,8 +8,6 @@ RUN yarn install
 
 COPY . .
 
-COPY .env .env
-
 RUN yarn build
 
 EXPOSE 3000
