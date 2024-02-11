@@ -2,10 +2,10 @@ import { IsNotEmpty } from 'class-validator';
 
 export class SaveCommentDto {
   @IsNotEmpty()
-  readonly parent_id: number | null;
+  readonly parent_id: string | null;
 
   @IsNotEmpty()
-  readonly user_id: number;
+  readonly user_id: string;
 
   @IsNotEmpty()
   readonly content: string;

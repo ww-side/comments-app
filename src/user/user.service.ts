@@ -3,6 +3,7 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import * as process from 'process';
 import { validate } from 'class-validator';
+import { v4 as uuid } from 'uuid';
 import {
   BadRequestException,
   Injectable,
@@ -30,6 +31,7 @@ export class UserService {
 
   async registration(createUserDto: CreateUserDto) {
     const user = new UserEntity();
+    user.id = uuid();
     user.username = createUserDto.username;
     user.password = bcrypt.hashSync(createUserDto.password, 7);
     user.email = createUserDto.email;

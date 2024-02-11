@@ -10,7 +10,6 @@ import {
 } from '@nestjs/websockets';
 import { UseInterceptors } from '@nestjs/common';
 import { CommentService } from './comment.service';
-import { CommentEntity } from './entities/comment.entity';
 import { WsJwtInterceptor } from '../interceptors/ws-jwt.interceptor';
 import { SaveCommentDto } from './dto/save-comment.dto';
 

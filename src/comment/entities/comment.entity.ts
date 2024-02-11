@@ -1,20 +1,15 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'comments' })
 export class CommentEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryColumn({ type: 'text' })
+  id: string;
 
-  @Column({ type: 'integer', nullable: true })
-  parent_id: number;
+  @Column({ type: 'text', nullable: true })
+  parent_id: string;
 
-  @Column({ type: 'integer' })
-  user_id: number;
+  @Column({ type: 'text' })
+  user_id: string;
 
   @Column({ type: 'text' })
   content: string;

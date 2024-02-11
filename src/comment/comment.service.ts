@@ -1,4 +1,5 @@
 import { Repository } from 'typeorm';
+import { v4 as uuid } from 'uuid';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CommentEntity } from './entities/comment.entity';
@@ -23,7 +24,10 @@ export class CommentService {
       throw new NotFoundException(`Comment doesn't exist`);
     }
 
-    const savedComment = await this.commentRepository.save(comment);
+    const savedComment = await this.commentRepository.save({
+      id: uuid(),
+      ...comment,
+    });
     return this.commentRepository.findOne({ where: { id: savedComment.id } });
   }
 

@@ -3,13 +3,13 @@ import { CommentEntity } from '../entities/comment.entity';
 
 export class GetAllCommentsDto {
   @IsNotEmpty()
-  readonly id: number;
+  readonly id: string;
 
   @IsNotEmpty()
-  readonly parent_id: number | null;
+  readonly parent_id: string | null;
 
   @IsNotEmpty()
-  readonly user_id: number;
+  readonly user_id: string;
 
   @IsNotEmpty()
   readonly content: string;
