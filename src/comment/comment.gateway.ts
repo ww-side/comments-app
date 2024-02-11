@@ -10,8 +10,9 @@ import {
 } from '@nestjs/websockets';
 import { UseInterceptors } from '@nestjs/common';
 import { CommentService } from './comment.service';
-import { WsJwtInterceptor } from '../interceptors/ws-jwt.interceptor';
 import { CommentEntity } from './entities/comment.entity';
+import { WsJwtInterceptor } from '../interceptors/ws-jwt.interceptor';
+import { SaveCommentDto } from './dto/save-comment.dto';
 
 @WebSocketGateway()
 @UseInterceptors(WsJwtInterceptor)
@@ -21,7 +22,7 @@ export class CommentGateway implements OnGatewayConnection {
   constructor(private readonly commentService: CommentService) {}
 
   handleConnection(client: Socket) {
-    const authorizationHeader = client.handshake.headers['authorization'];
+    const authorizationHeader = client.handshake.headers?.['authorization'];
 
     const handleAuthorizationError = (errorMessage: string) => {
       client.emit('authorizationError', { error: errorMessage });
@@ -45,22 +46,17 @@ export class CommentGateway implements OnGatewayConnection {
 
   @SubscribeMessage('comment')
   async handleComment(
-    @MessageBody() comment: CommentEntity,
+    @MessageBody() comment: SaveCommentDto,
     @ConnectedSocket() client: Socket,
   ) {
     try {
-      const token = client.handshake.headers['authorization'].split(' ')[1];
+      const token = client.handshake.headers['authorization']?.split(' ')[1];
       const decoded = verify(token, process.env.JWT_SECRET_KEY);
-
-      const { id, parent_id, content, created_at } = comment;
       const userId = decoded['id'];
 
       const savedComment = await this.commentService.saveComment({
-        id,
-        parent_id,
         user_id: userId,
-        content,
-        created_at,
+        ...comment,
       });
       this.server.emit('newComment', savedComment);
     } catch (err) {
