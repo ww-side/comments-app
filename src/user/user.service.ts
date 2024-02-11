@@ -2,6 +2,7 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import * as process from 'process';
+import { validate } from 'class-validator';
 import {
   BadRequestException,
   Injectable,
@@ -10,7 +11,6 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserEntity } from './entities/user.entity';
-import { validate } from 'class-validator';
 import { LoginUserDto } from './dto/login-user.dto';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class UserService {
   ) {}
 
   private generateJwtToken(user: UserEntity): string {
-    const payload = { username: user.username, email: user.email };
+    const payload = { id: user.id, username: user.username, email: user.email };
     const secretKey = process.env.JWT_SECRET_KEY;
     const options = { expiresIn: '24h' };
 
