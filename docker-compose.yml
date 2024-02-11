@@ -7,10 +7,10 @@ services:
     ports:
       - 3000:3000
     environment:
-      SERVER_PORT: ${SERVER_PORT}
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
-      DB_NAME: ${DB_NAME}
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      SERVER_PORT: 3000
+      DB_HOST: bzgitdevsar0s5hytyfy-postgresql.services.clever-cloud.com
+      DB_PORT: 50013
+      DB_NAME: bzgitdevsar0s5hytyfy
+      DB_USERNAME: unnlg28a7vdebimwpfgh
+      DB_PASSWORD: r8ufaYqDp8qxLcnpWzHpjz05j6ZRCu
+      JWT_SECRET_KEY: very-secret-key
