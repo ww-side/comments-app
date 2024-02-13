@@ -36,6 +36,8 @@ Finally, we can connect to the ws server and send a 'comment' event with body
 > parent_id: *string/null*  
 > content: *string*
 
+*parent_id is the id of the comment you are replying to*
+
 ![Pic](https://images2.imgbox.com/de/b7/710IIPQA_o.png)
 
 *newComment emit result after comment event*
@@ -47,6 +49,20 @@ For this event we need to send an empty body and see a result from allComments e
 
 *allComments emit result*
 ![Pic](https://images2.imgbox.com/58/05/IRWWQE4V_o.png)
+
+
+### Schema tables
+users
+
+| id        | username     | password                        | email |
+|-----------|--------------|---------------------------------|-------|
+| [PK] text | text         | text                            | text  |
+
+comments
+
+| id        | parent_id | user_id | content | created_at                  |
+|-----------|-----------|---------|---------|-----------------------------|
+| [PK] text | text      | text    | text    | timestamp without time zone |
 
 
 ### Run the project locally
